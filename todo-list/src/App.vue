@@ -1,15 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <ul>
+      <li
+        v-for="(todo, idx) in todos"
+        :key="idx"
+        :class="{ lineThrough: todo.complete }"
+      >
+        <span>{{ idx + 1 }}. {{ todo.label }}</span>
+        <input type="checkbox" v-model="todo.complete" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-
-  }
-}
+  name: "App",
+  data() {
+    return {
+      todos: [
+        { label: "item1", complete: true },
+        { label: "item2", complete: false },
+        { label: "item3", complete: false },
+        { label: "item4", complete: false },
+      ],
+    };
+  },
+  components: {},
+};
 </script>
 
 <style>
@@ -20,5 +39,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.lineThrough {
+  text-decoration: line-through;
 }
 </style>
