@@ -15,7 +15,11 @@
           Все задачи выполнены
         </span>
       </div>
-      <div class="control_form--filter">
+      <div class="control_form--filter" v-if="todos.length > 0">
+        <div>
+          <label>Поиск:</label>
+          <input type="text" v-model="inputFilter" />
+        </div>
         <div>
           <label>Скрыть выполененые задачи</label>
           <input type="checkbox" v-model="isHide" />
@@ -48,12 +52,13 @@ export default {
         { label: "item4", complete: false, id: 4 },
       ],
       inputText: "",
+      inputFilter: "",
       isHide: false,
     };
   },
   methods: {
     addTodo() {
-      if (this.inputText.length > 2) {
+      if (this.inputText.length > 0) {
         this.todos.push({
           label: this.inputText,
           complete: false,
@@ -69,11 +74,19 @@ export default {
   components: {},
   computed: {
     shownTodos() {
+      let result;
       if (this.isHide) {
-        return this.todos.filter((item) => !item.complete);
+        result = this.todos.filter((item) => !item.complete);
       } else {
-        return this.todos;
+        result = this.todos;
       }
+      if (this.inputFilter) {
+        result = result.filter(({ label }) =>
+          label.toLowerCase().includes(this.inputFilter.toLowerCase())
+        );
+      }
+
+      return result;
     },
     taskCompleted() {
       return this.todos.filter((item) => item.complete).length;
@@ -83,6 +96,11 @@ export default {
     },
     isAllCompletedTasks() {
       return this.taskCompleted > 0 && this.taskCompleted == this.todos.length;
+    },
+  },
+  watch: {
+    inputFilter(nw, old) {
+      console.log(`change input: old - ${old}, new - ${nw}`);
     },
   },
 };
