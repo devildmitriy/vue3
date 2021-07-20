@@ -1,31 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <div>{{count}}</div>
-  <VCount @add="addCount"/>
+  <div>{{ count }}</div>
+  <VCount @add="addCount" />
+  <VInputText v-model="text" />
+  <VInputCheckbox v-model="checkbox" />
+  <button @click="check">проверить</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import VCount from './components/VCount.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import VCount from "./components/VCount.vue";
+import VInputText from "./components/VInputText";
+import VInputCheckbox from "./components/VInputCheckbox";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld,VCount
+    HelloWorld,
+    VCount,
+    VInputText,
+    VInputCheckbox,
   },
   data() {
     return {
-      count: 0
-    }
+      count: 0,
+      text: "text",
+      checkbox: false,
+    };
   },
   methods: {
-    addCount(e,e2) {
-      console.log(e,e2)
+    addCount(e, e2) {
+      console.log(e, e2);
       this.count++;
-    }
-  }
-}
+    },
+    check() {
+      console.log(this.text);
+      console.log(this.checkbox);
+    },
+  },
+};
 </script>
 
 <style>
