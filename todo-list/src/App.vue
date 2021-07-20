@@ -2,7 +2,7 @@
   <div>
     <img alt="Vue logo" src="./assets/logo.png" />
     <div class="control_form">
-      <AddForm @addTodo="addTodo" />
+      <AddForm @addTodo="addTodo"> Добавить задачу </AddForm>
       <StatusForm
         :allTodosCount="todos.length"
         :isAllTasks="isAllTasks"
