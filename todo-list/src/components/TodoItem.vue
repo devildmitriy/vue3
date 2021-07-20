@@ -1,8 +1,14 @@
 <template>
   <div>
-    <span>{{ todo.idx + 1 }}. {{ todo.label }}</span>
-    <input type="checkbox" v-model="todo.complete" />
-    <button @click="cnsl()">X</button>
+    <span :class="{ lineThrough: modelValue }">
+      {{ todo.idx + 1 }}. {{ todo.label }}
+    </span>
+    <input
+      type="checkbox"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', $event.target.checked)"
+    />
+    <button @click="del(todo.id)">X</button>
   </div>
 </template>
 
@@ -15,14 +21,19 @@ export default {
       id: Number,
       complete: Boolean,
     },
+    modelValue: Boolean,
   },
+  emits: ["del", "update:modelValue"],
   methods: {
-    cnsl() {
-      console.log("kek", this.todo);
+    del(id) {
+      this.$emit("del", id);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.lineThrough {
+  text-decoration: line-through;
+}
 </style>
