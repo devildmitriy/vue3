@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <div class="control_form">
       <div class="control_form--add">
-        <input type="text" v-model="inputText" @keypress.enter="addTodo" />
+        <input type="text" v-model.trim="inputText" @keypress.enter="addTodo" />
         <button @click="addTodo">Добавить</button>
       </div>
       <div class="control_form--status">
@@ -18,16 +18,16 @@
       <div class="control_form--filter" v-if="todos.length > 0">
         <div>
           <label>Поиск:</label>
-          <input type="text" v-model="inputFilter" />
+          <input type="text" v-model.trim="inputFilter" />
         </div>
-        <div>
+        <div v-if="taskCompleted > 0">
           <label>Скрыть выполененые задачи</label>
           <input type="checkbox" v-model="isHide" />
         </div>
       </div>
     </div>
     <ul>
-      <li
+      <!-- <li
         v-for="(todo, idx) in shownTodos"
         :key="todo.id"
         :class="{ lineThrough: todo.complete }"
@@ -35,18 +35,25 @@
         <span>{{ idx + 1 }}. {{ todo.label }}</span>
         <input type="checkbox" v-model="todo.complete" />
         <button @click="delItem(todo.id)">X</button>
-      </li>
+      </li> -->
+      <TodoItem
+        v-for="(todo, idx) in shownTodos"
+        :key="todo.id"
+        :class="{ lineThrough: todo.complete }"
+        :todo="{...todo,'idx': idx}"
+      />
     </ul>
   </div>
 </template>
 
 <script>
+import TodoItem from "./components/TodoItem.vue";
 export default {
   name: "App",
   data() {
     return {
       todos: [
-        { label: "item1", complete: true, id: 1 },
+        { label: "item1", complete: true, id: '1' },
         { label: "item2", complete: false, id: 2 },
         { label: "item3", complete: false, id: 3 },
         { label: "item4", complete: false, id: 4 },
@@ -71,7 +78,7 @@ export default {
       this.todos = this.todos.filter((item) => item.id !== id);
     },
   },
-  components: {},
+  components: { TodoItem },
   computed: {
     shownTodos() {
       let result;
