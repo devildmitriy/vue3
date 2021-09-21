@@ -9,14 +9,16 @@
         :role="member.role"
       ></user-item>
     </ul>
+    <router-link to="/teams/t2">go to team 2</router-link>
   </section>
 </template>
 
-<script>
+<script scoped>
 import UserItem from '../users/UserItem.vue';
 
 export default {
   inject: ['users', 'teams'],
+  props:['teamId'],
   components: {
     UserItem
   },
@@ -29,20 +31,34 @@ export default {
       ]
     };
   },
-  created() {
-    //this.$route.path
-    const teamId = this.$route.params.teamId;
-    const selectedTeam = this.teams.find(item => item.id === teamId)
-    const members = selectedTeam.members;
-    const selectedMembers = [];
-    for(const member of members){
-      selectedMembers.push(this.users.find(user => user.id ===member))
+  methods: {
+    loadTeamMembers(teamId) {
+      //this.$route.path
+      console.log('loadTeam')
+      //const teamId = route.params.teamId;
+      const selectedTeam = this.teams.find(item => item.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+      for (const member of members) {
+        const selectedUser = this.users.find(user => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+
+      this.members = selectedMembers;
+      this.teamName = selectedTeam.name;
     }
-    
-    this.members = selectedMembers;
-    this.teamName = selectedTeam.name
-   
-   
+  },
+  created() {
+    this.loadTeamMembers(this.teamId);
+  },
+  beforRouterUpdate(to,form ,next) {
+    console.log('beforRouterUpdate')
+    next();
+  },
+  watch: {
+    teamId(newRoute) {
+      this.loadTeamMembers(newRoute);
+    }
   }
 };
 </script>

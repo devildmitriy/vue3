@@ -1,5 +1,6 @@
 <template>
   <ul>
+    <router-view></router-view>
     <teams-item
       v-for="team in teams"
       :key="team.id"
@@ -7,11 +8,13 @@
       :name="team.name"
       :member-count="team.members.length"
     ></teams-item>
+    
   </ul>
+  
 </template>
 
 <script>
-import TeamsItem from './TeamsItem.vue';
+import TeamsItem from '../components/teams/TeamsItem.vue';
 
 export default {
   components: {
