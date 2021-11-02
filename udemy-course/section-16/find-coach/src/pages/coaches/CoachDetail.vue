@@ -1,4 +1,5 @@
 <template>
+<div>
   <section>
     <base-card>
       <h2>{{ fullName }}</h2>
@@ -21,6 +22,7 @@
       <p>{{ description }}</p>
     </base-card>
   </section>
+  </div>
   <!-- <h2>Details for coach</h2>
   <router-view></router-view>
   <router-link to="/coaches/c1/contact">Contact</router-link> -->
