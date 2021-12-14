@@ -9,6 +9,7 @@ import CoachRegistration from './pages/coaches/CoachRegistration';
 
 import ContactCoach from './pages/resuests/ContactCoach';
 import RequestReceived from './pages/resuests/RequestReceived';
+import UserAuth from './pages/auth/UserAuth';
 import NotFound from './pages/NotFound';
 
 
@@ -39,6 +40,10 @@ const router = createRouter({
         {
             path: '/requests',
             component: RequestReceived
+        },
+        {
+            path: '/auth',
+            component: UserAuth
         },
         {
             path: '/:notFound(.*)',
