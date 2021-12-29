@@ -55,7 +55,6 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      console.log('logged',this.$store.getters.isAuthenticated);
       return this.$store.getters.isAuthenticated;
     },
     filterCoaches() {

@@ -9,5 +9,8 @@ export default {
 
     isAuthenticated(state) {
         return !!state.token;
+    },
+    didLogout(state) {
+        return state.didLogout;
     }
 }
